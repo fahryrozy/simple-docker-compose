@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: docker-compose-web
+    build:
+      context: ./docker-compose-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3000"
+
+  api:
+    build:
+      context: ./docker-compose-backend
+      dockerfile: Dockerfile
+    ports:
+      - "3033:3030"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgres
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+    volumes:
+      - ./docker-compose-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: postgres
+    ports:
+      - "5432:5432"
