@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  const [message, setMessage] = useState("Gagal mendapatkan pesan dari DB");
+  const [message, setMessage] = useState("Gagal mendapatkan pesan dari API");
   const getMessage = async () => {
     try {
-      const response = await axios.get("http://localhost:3030");
-      console.log(">>>", response);
+      const response = await axios.get("http://localhost:3033");
       setMessage(response.data[0].message);
     } catch (error) {
       console.error(error);

@@ -15,8 +15,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3033:3030"
-    depends_on:
-      - db
 
   db:
     image: postgres:13
@@ -30,4 +28,4 @@ services:
       - ./docker-compose-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     command: postgres
     ports:
-      - "5432:5432"
+      - "5434:5432"
